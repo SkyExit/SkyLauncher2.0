@@ -25,6 +25,10 @@
                 <view:ProjectView/>
             </DataTemplate>
 
+            <DataTemplate DataType="{x:Type viewModel:EmojiViewModel}">
+                <view:EmojiView/>
+            </DataTemplate>
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>

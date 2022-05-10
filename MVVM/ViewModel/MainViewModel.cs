@@ -7,9 +7,11 @@ namespace SkyLauncherRemastered.MVVM.ViewModel
 
         public RelayCommand HomeViewCommand { get; set; }
         public RelayCommand ProjectViewCommand { get; set; }
+        public RelayCommand EmojiViewCommand { get; set; }
 
         public HomeViewModel HomeViewModel { get; set; }
         public ProjectViewModel ProjectViewModel { get; set; }
+        public EmojiViewModel EmojiViewModel { get; set; }
 
         private object _currentView;
         public object CurrentView
@@ -22,6 +24,8 @@ namespace SkyLauncherRemastered.MVVM.ViewModel
         {
             HomeViewModel = new HomeViewModel();
             ProjectViewModel = new ProjectViewModel();
+            EmojiViewModel = new EmojiViewModel();
+
             CurrentView = HomeViewModel;
 
             HomeViewCommand = new RelayCommand(o =>
@@ -32,7 +36,12 @@ namespace SkyLauncherRemastered.MVVM.ViewModel
             ProjectViewCommand = new RelayCommand(o =>
             {
                 CurrentView = ProjectViewModel;
-            }); ;
+            });
+
+            EmojiViewCommand = new RelayCommand(o =>
+            {
+                CurrentView = EmojiViewModel;
+            });
         }
     }
 }

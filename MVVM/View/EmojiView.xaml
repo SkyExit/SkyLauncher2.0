@@ -1,0 +1,58 @@
+﻿<UserControl x:Class="SkyLauncherRemastered.MVVM.View.EmojiView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SkyLauncherRemastered.MVVM.View" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="525" d:DesignWidth="720">
+    <Grid>
+        <Grid x:Name="ControllGrid" Margin="0,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Top">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,0,0" HorizontalAlignment="Center">
+                <Button x:Name="SEARCH" Background="{x:Null}" BorderBrush="{x:Null}" VerticalAlignment="Center" Click="MenuButton_Click" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}">
+                    <materialDesign:PackIcon Kind="Search" Foreground="#FFA2A2A2" Width="25" Height="25" />
+                </Button>
+                <Button x:Name="HISTORY" Background="{x:Null}" BorderBrush="{x:Null}" VerticalAlignment="Center" Click="MenuButton_Click" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}">
+                    <materialDesign:PackIcon Kind="Clock" Foreground="#FFA2A2A2" Width="25" Height="25" />
+                </Button>
+                <Button x:Name="SMILEY" Background="{x:Null}" BorderBrush="{x:Null}" VerticalAlignment="Center" Click="MenuButton_Click" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}">
+                    <materialDesign:PackIcon Kind="Smiley" Foreground="#FFA2A2A2" Width="25" Height="25" />
+                </Button>
+                <Button x:Name="ANIMALS" Background="{x:Null}" BorderBrush="{x:Null}" VerticalAlignment="Center" Click="MenuButton_Click" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}">
+                    <materialDesign:PackIcon Kind="Dog" Foreground="#FFA2A2A2" Width="25" Height="25" />
+                </Button>
+                <Button x:Name="FLOWER" Background="{x:Null}" BorderBrush="{x:Null}" VerticalAlignment="Center" Click="MenuButton_Click" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}">
+                    <materialDesign:PackIcon Kind="Flower" Foreground="#FFA2A2A2" Width="25" Height="25" />
+                </Button>
+                <Button x:Name="SPORT" Background="{x:Null}" BorderBrush="{x:Null}" VerticalAlignment="Center" Click="MenuButton_Click" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}">
+                    <materialDesign:PackIcon Kind="Soccer" Foreground="#FFA2A2A2" Width="25" Height="25" />
+                </Button>
+                <Button x:Name="LIGHTBULB" Background="{x:Null}" BorderBrush="{x:Null}" VerticalAlignment="Center" Click="MenuButton_Click"  Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}">
+                    <materialDesign:PackIcon Kind="Lightbulb" Foreground="#FFA2A2A2" Width="25" Height="25" />
+                </Button>
+                <Button x:Name="HASHTAG" Background="{x:Null}" BorderBrush="{x:Null}" VerticalAlignment="Center" Click="MenuButton_Click" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}">
+                    <materialDesign:PackIcon Kind="HashtagBox" Foreground="#FFA2A2A2" Width="25" Height="25" />
+                </Button>
+            </StackPanel>
+        </Grid>
+        <StackPanel Margin="0,60,0,0">
+            <ScrollViewer VerticalScrollBarVisibility="Hidden" HorizontalAlignment="Stretch" Height="465">
+                <Grid x:Name="_EmojyGrid" HorizontalAlignment="Stretch" Width="720" />
+            </ScrollViewer>
+            <Button x:Name="_CopyButton" 
+                    Visibility="Hidden" 
+                    Content="Button" 
+                    VerticalAlignment="Bottom" 
+                    HorizontalAlignment="Center" 
+                    Width="192" Cursor="Hand" 
+                    Background="#FF96ED39" 
+                    BorderBrush="{x:Null}" 
+                    Foreground="Black" 
+                    FontWeight="Bold"
+                    FontFamily="Arial"
+                    Grid.Column="1"
+                    Grid.Row="1"
+                    Margin="0,-60,0,40"/>
+        </StackPanel>
+    </Grid>
+</UserControl>

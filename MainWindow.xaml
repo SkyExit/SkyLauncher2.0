@@ -50,6 +50,12 @@ xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
                              FontSize="14"
                              Style="{StaticResource MenuButtonTheme}"
                              Command="{Binding ProjectViewCommand}"/>
+                <RadioButton Content="Emojis"
+                             Height="50"
+                             Foreground="White"
+                             FontSize="14"
+                             Style="{StaticResource MenuButtonTheme}"
+                             Command="{Binding EmojiViewCommand}"/>
             </StackPanel>
             
             <TextBox Width="250"
@@ -77,7 +83,7 @@ xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
                     HorizontalAlignment="Right"
                     Grid.Column="1"
                     Margin="0,0,50,0"
-                    Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}">
+                    Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Cursor="Hand">
                 <materialDesign:PackIcon Kind="WindowMinimize" 
                                          Foreground="#FFA2A2A2" 
                                          Width="25" Height="25"/>
@@ -87,7 +93,6 @@ xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
                             Grid.Column="1"
                             Margin="10"
                             Content="{Binding CurrentView}"/>
-
         </Grid>
     </Border>
 </Window>
