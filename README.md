@@ -1,7 +1,9 @@
 <h1>SkyBoard</h1>
-Installation:
+Installation: 
+
 - Download the SkyBoardSetup.exe from the releases Tab
 - Install & Enjoy
+
 
 Features:
 - SkyBoard
@@ -9,11 +11,8 @@ Features:
       Animal, Flower, Sport, Travel, Stuff and Flag emojis
       Copy confirmation
 - ValBoard
--     Informations about Weapons
--           Damage,
-            Stats,
-            Skins
- - Informations about every public project
+-     Informations about Weapons (Damage, Stats, Skins)
+- Informations about every public project
 
 
 ToDo-List:
