@@ -95,9 +95,10 @@ namespace SkyLauncherRemastered.MVVM.View
                 var weaponStats = jsonO["data"][weapon]["weaponStats"];
                 var weaponShopData = jsonO["data"][weapon]["shopData"];
                 JArray weaponSkins = JArray.Parse(jsonO["data"][weapon]["skins"].ToString());
+                JArray weaponRanges = JArray.Parse(weaponStats["damageRanges"].ToString());
 
                 //Print Weapon data
-                TBWeaponName.Text = weaponDefault["displayName"].ToString();
+                TBWeaponName.Text = weaponDefault["displayName"] + " - " + weaponShopData["categoryText"] + " - " + weaponShopData["cost"] + "$";
 
                 if(weapon != 17)
                 {
@@ -107,6 +108,41 @@ namespace SkyLauncherRemastered.MVVM.View
                                             "Run speed multiplicator: " + weaponStats["runSpeedMultiplier"] + "% \n" +
                                             "Reload speed: " + weaponStats["reloadTimeSeconds"] + "s \n" +
                                             "Wall penetration: " + wallPenetration[2];
+
+                    Grid RangeGrid = _RangeGrid;
+
+                    RangeGrid.Children.Clear();
+                    RangeGrid.ColumnDefinitions.Clear();
+
+
+
+                    for (int a = 0; a < weaponRanges.Count; a++)
+                    {
+                        var range = weaponRanges[a];
+
+                        RangeGrid.ColumnDefinitions.Add(new ColumnDefinition());
+
+                        TextBlock txt1 = new TextBlock();
+                            txt1.Text = range["rangeStartMeters"] + "m - " + range["rangeEndMeters"] + "m" + "\n";
+                            txt1.FontSize = 18;
+                            txt1.Foreground = Brushes.White;
+                            txt1.HorizontalAlignment = HorizontalAlignment.Center;
+                        Grid.SetColumn(txt1, a);
+                        Grid.SetRow(txt1, 0);
+                        RangeGrid.Children.Add(txt1);
+
+
+                        TextBlock txt2 = new TextBlock();
+                            txt2.Text =     "Head: " + range["headDamage"] + "\n" +
+                                            "Body: " + range["bodyDamage"] + "\n" +
+                                            "Leg: " + range["legDamage"];
+                            txt2.FontSize = 17;
+                            txt2.Foreground = Brushes.White;
+                            txt2.HorizontalAlignment = HorizontalAlignment.Center;
+                        Grid.SetColumn(txt2, a);
+                        Grid.SetRow(txt2, 1);
+                        RangeGrid.Children.Add(txt2);
+                    }
                 }
 
                 //Print Weapon Skins
@@ -138,6 +174,7 @@ namespace SkyLauncherRemastered.MVVM.View
                         img.Width = 250;
                         img.VerticalAlignment = VerticalAlignment.Top;
                         img.HorizontalAlignment = HorizontalAlignment.Left;
+                        img.MouseLeftButtonDown += OpenImageLarge;
 
                         stackPanel.Children.Add(img);
                     } catch (Exception)
@@ -156,6 +193,11 @@ namespace SkyLauncherRemastered.MVVM.View
             }
             catch (Exception ex) { Console.WriteLine("2: " + ex.Message); }
 
+        }
+
+        private async void OpenImageLarge(object sender, MouseButtonEventArgs e)
+        {
+            
         }
 
         private static async Task<JObject> GetWeapons()
