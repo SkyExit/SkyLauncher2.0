@@ -92,16 +92,19 @@ namespace SkyLauncherRemastered.MVVM.View
             try
             {
                 var weaponDefault = jsonO["data"][weapon];
-                var weaponStats = jsonO["data"][weapon]["weaponStats"];
-                var weaponShopData = jsonO["data"][weapon]["shopData"];
+                
                 JArray weaponSkins = JArray.Parse(jsonO["data"][weapon]["skins"].ToString());
-                JArray weaponRanges = JArray.Parse(weaponStats["damageRanges"].ToString());
+                
 
                 //Print Weapon data
-                TBWeaponName.Text = weaponDefault["displayName"] + " - " + weaponShopData["categoryText"] + " - " + weaponShopData["cost"] + "$";
-
                 if(weapon != 17)
                 {
+                    var weaponStats = jsonO["data"][weapon]["weaponStats"];
+                    var weaponShopData = jsonO["data"][weapon]["shopData"];
+                    JArray weaponRanges = JArray.Parse(weaponStats["damageRanges"].ToString());
+
+                    TBWeaponName.Text = weaponDefault["displayName"] + " - " + weaponShopData["categoryText"] + " - " + weaponShopData["cost"] + "$";
+
                     string[] wallPenetration = weaponStats["wallPenetration"].ToString().Split(':');
                     TBWeaponStats.Text = "Fire rate: " + weaponStats["fireRate"] + "\n" +
                                             "Magazine size: " + weaponStats["magazineSize"] + "\n" +

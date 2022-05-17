@@ -43,7 +43,7 @@
                 <Image x:Name="VANDAL" Source="/Images/VALORANT/VANDAL.png" Grid.Column="2" Grid.Row="4" MouseLeftButtonDown="Image_MouseLeftButtonDown"/>
             </Grid>
             <Grid x:Name="_InfoGrid" Height="525" Width="720" Margin="0,-525,0,0" Visibility="Hidden" Background="#7F000000">
-                <TextBlock Grid.Column="0" Text="WeaponName" Foreground="White"
+                <TextBlock Grid.Column="0" Text="Melee" Foreground="White"
                                HorizontalAlignment="Left" VerticalAlignment="Top"
                                Margin="30,50,0,0" FontSize="27" x:Name="TBWeaponName"/>
                 <TextBlock Grid.Column="0" Text="No statistics available" Foreground="White"
