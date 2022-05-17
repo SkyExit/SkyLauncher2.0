@@ -1,4 +1,4 @@
-<h1>SkyBoard</h1>
+<h1>SkyLauncher 2.0</h1>
 Installation: 
 
 - Download the SkyBoardSetup.exe from the releases Tab
