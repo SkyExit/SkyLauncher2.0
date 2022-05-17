@@ -16,7 +16,7 @@ xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     <Window.DataContext>
         <viewModel:MainViewModel/>
     </Window.DataContext>
-    
+
     <Border Background="#272537"
             CornerRadius="20">
         <Grid>
@@ -56,8 +56,14 @@ xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
                              FontSize="14"
                              Style="{StaticResource MenuButtonTheme}"
                              Command="{Binding EmojiViewCommand}"/>
+                <RadioButton Content="VALORANT"
+                             Height="50"
+                             Foreground="White"
+                             FontSize="14"
+                             Style="{StaticResource MenuButtonTheme}"
+                             Command="{Binding ValorantViewCommand}"/>
             </StackPanel>
-            
+
             <TextBox Width="250"
                      Height="40"
                      VerticalAlignment="Center"

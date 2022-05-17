@@ -29,6 +29,10 @@
                 <view:EmojiView/>
             </DataTemplate>
 
+            <DataTemplate DataType="{x:Type viewModel:ValorantViewModel}">
+                <view:ValorantView/>
+            </DataTemplate>
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>

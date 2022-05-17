@@ -1,0 +1,69 @@
+﻿<UserControl x:Class="SkyLauncherRemastered.MVVM.View.ValorantView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SkyLauncherRemastered.MVVM.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="525" d:DesignWidth="720">
+    <Grid HorizontalAlignment="Left" VerticalAlignment="Top">
+        <StackPanel>
+            <Grid Width="720" Height="525">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="125"/>
+                    <ColumnDefinition Width="190"/>
+                    <ColumnDefinition Width="200"/>
+                    <ColumnDefinition Width="200"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="105"/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <Image x:Name="ARES" Source="/Images/VALORANT/ARES.png" Grid.Column="3" Grid.Row="3" MouseLeftButtonDown="Image_MouseLeftButtonDown"/>
+                <Image x:Name="BUCKY" Source="/Images/VALORANT/BUCKY.png" Grid.Column="1" Grid.Row="3" MouseLeftButtonDown="Image_MouseLeftButtonDown"/>
+                <Image x:Name="BULLDOG" Source="/Images/VALORANT/BULLDOG.png" Grid.Column="2" Grid.Row="0" MouseLeftButtonDown="Image_MouseLeftButtonDown"/>
+                <Image x:Name="CLASSIC" Source="/Images/VALORANT/CLASSIC.png" Grid.Column="0" Grid.Row="0" MouseLeftButtonDown="Image_MouseLeftButtonDown"/>
+                <Image x:Name="FRENZY" Source="/Images/VALORANT/FRENZY.png" Grid.Column="0" Grid.Row="2" MouseLeftButtonDown="Image_MouseLeftButtonDown"/>
+                <Image x:Name="GHOST" Source="/Images/VALORANT/GHOST.png" Grid.Column="0" Grid.Row="3" MouseLeftButtonDown="Image_MouseLeftButtonDown"/>
+                <Image x:Name="GUARDIAN" Source="/Images/VALORANT/GUARDIAN.png" Grid.Column="2" Grid.Row="1" MouseLeftButtonDown="Image_MouseLeftButtonDown"/>
+                <Image x:Name="JUDGE" Source="/Images/VALORANT/JUDGE.png" Grid.Column="1" Grid.Row="4" MouseLeftButtonDown="Image_MouseLeftButtonDown"/>
+                <Image x:Name="MARSHAL" Source="/Images/VALORANT/MARSHAL.png" Grid.Column="3" Grid.Row="0" MouseLeftButtonDown="Image_MouseLeftButtonDown"/>
+                <Image x:Name="MELEE" Source="/Images/VALORANT/MELEE.png" Grid.Column="2" Grid.Row="2" MouseLeftButtonDown="Image_MouseLeftButtonDown"/>
+                <Image x:Name="ODIN" Source="/Images/VALORANT/ODIN.png" Grid.Column="3" Grid.Row="4" MouseLeftButtonDown="Image_MouseLeftButtonDown"/>
+                <Image x:Name="OPERATOR" Source="/Images/VALORANT/OPERATOR.png" Grid.Column="3" Grid.Row="1" MouseLeftButtonDown="Image_MouseLeftButtonDown"/>
+                <Image x:Name="PHANTOM" Source="/Images/VALORANT/PHANTOM.png" Grid.Column="2" Grid.Row="3" MouseLeftButtonDown="Image_MouseLeftButtonDown"/>
+                <Image x:Name="SHERIFF" Source="/Images/VALORANT/SHERIFF.png" Grid.Column="0" Grid.Row="4" MouseLeftButtonDown="Image_MouseLeftButtonDown"/>
+                <Image x:Name="SHORTY" Source="/Images/VALORANT/SHORTY.png" Grid.Column="0" Grid.Row="1" MouseLeftButtonDown="Image_MouseLeftButtonDown"/>
+                <Image x:Name="SPECTRE" Source="/Images/VALORANT/SPECTRE.png" Grid.Column="1" Grid.Row="1" MouseLeftButtonDown="Image_MouseLeftButtonDown"/>
+                <Image x:Name="STINGER" Source="/Images/VALORANT/STINGER.png" Grid.Column="1" Grid.Row="0" MouseLeftButtonDown="Image_MouseLeftButtonDown"/>
+                <Image x:Name="VANDAL" Source="/Images/VALORANT/VANDAL.png" Grid.Column="2" Grid.Row="4" MouseLeftButtonDown="Image_MouseLeftButtonDown"/>
+            </Grid>
+            <Grid Height="525" Width="720" Margin="0,-525,0,0" >
+                <Grid x:Name="_InfoGrid" Visibility="Hidden" Background="#7F000000">
+                    <TextBlock Grid.Column="0" Text="WeaponName" Foreground="White"
+                               HorizontalAlignment="Left" VerticalAlignment="Top"
+                               Margin="30,50,0,0" FontSize="32" x:Name="TBWeaponName"/>
+                    <TextBlock Grid.Column="0" Text="WeaponStats" Foreground="White"
+                               HorizontalAlignment="Left" VerticalAlignment="Top"
+                               Margin="30,100,0,0" FontSize="22" x:Name="TBWeaponStats"/>
+                    <Button Content="X" Background="Transparent" Grid.Column="0" BorderBrush="{x:Null}" HorizontalAlignment="Left" 
+                            VerticalAlignment="Top" Cursor="Hand" Click="CloseInfoWindow"/>
+                    <TextBlock Grid.Column="1" HorizontalAlignment="Center" Margin="0,10,0,0" 
+                               TextWrapping="Wrap" Text="WEAPON SKINS" VerticalAlignment="Top"
+                               FontSize="23" Foreground="White" FontWeight="Bold"/>
+                    <ScrollViewer Grid.Column="1" Margin="0,40,0,0" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden">
+                        <Grid x:Name="_SkinGrid"/>
+                    </ScrollViewer>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="450"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                </Grid>
+            </Grid>
+        </StackPanel>
+    </Grid>
+</UserControl>
