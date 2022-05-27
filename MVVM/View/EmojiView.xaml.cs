@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SkyLauncherRemastered.Properties;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -44,7 +45,7 @@ namespace SkyLauncherRemastered.MVVM.View
             switch ((sender as Button).Name.ToString())
             {
                 case "SEARCH": category = EmojiCategory.SMILEY; break;
-                case "HISTORY": category = EmojiCategory.SMILEY; break;
+                case "HISTORY": category = EmojiCategory.HISTORY; break;
                 case "SMILEY": category = EmojiCategory.SMILEY; break;
                 case "ANIMALS": category = EmojiCategory.ANIMALS; break;
                 case "FLOWER": category = EmojiCategory.FLOWER; break;
@@ -72,7 +73,7 @@ namespace SkyLauncherRemastered.MVVM.View
 
             rowCount = (smi.Length / columnCount);
 
-            myGrid.Height = rowCount * 75;
+            //myGrid.Height = rowCount * 75;
             myGrid.Width = 720;
             myGrid.ShowGridLines = false;
             myGrid.HorizontalAlignment = HorizontalAlignment.Center;
@@ -120,7 +121,14 @@ namespace SkyLauncherRemastered.MVVM.View
         private async void ButDeletOnPreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             Emoji.Wpf.TextBlock textBlock = (Emoji.Wpf.TextBlock)sender;
-            await copyToClipboard(textBlock.Text, true);
+            try
+            {
+                await copyToClipboard(textBlock.Text, true);
+            } catch (System.ArgumentException ex)
+            {
+                return;
+            }
+            
         }
 
         private String[] CreateEmojiList(EmojiCategory category)
@@ -195,6 +203,9 @@ namespace SkyLauncherRemastered.MVVM.View
                                 "🇸🇭,🇸🇮,🇸🇯,🇸🇰,🇸🇱,🇸🇲,🇸🇳,🇸🇴,🇸🇷,🇸🇸,🇸🇹,🇸🇻,🇸🇽,🇸🇾,🇸🇿,🇹🇦,🇹🇨,🇹🇩,🇹🇫,🇹🇬,🇹🇭,🇹🇯,🇹🇰,🇹🇱,🇹🇲,🇹🇳,🇹🇴,🇹🇷,🇹🇹,🇹🇻,🇹🇼,🇹🇿,🇺🇦,🇺🇬,🇺🇲,🇺🇳,🇺🇸,🇺🇾,🇺🇿,🇻🇦,🇻🇨,🇻🇪,🇻🇬,🇻🇮,🇻🇳,🇻🇺,🇼🇫,🇼🇸," +
                                 "🇽🇰,🇾🇪,🇾🇹,🇿🇦,🇿🇲,🇿🇼,🏴󠁧󠁢󠁥󠁮󠁧󠁿,🏴󠁧󠁢󠁳󠁣󠁴󠁿,🏴󠁧󠁢󠁷󠁬󠁳󠁿";
                     break;
+                case EmojiCategory.HISTORY:
+                    SmileyList = Settings.Default.History.Substring(0,Settings.Default.History.Length-1);
+                    break;
             }
             return SmileyList.Split(',');
         }
@@ -207,9 +218,25 @@ namespace SkyLauncherRemastered.MVVM.View
             Button copyButton = emojiView._CopyButton;
             copyButton.Content = "📋 Copied to Clipboard";
             copyButton.Visibility = Visibility.Visible;
-            //if (addToHistory) HistoryPage.smi.Add(emoji); //Add to History
+            if (addToHistory) AddToHistory(emoji);
             await Task.Delay(1500);
             copyButton.Visibility = Visibility.Hidden;
+        }
+
+        private static void AddToHistory(string emoji)
+        {
+            string history = Settings.Default.History;
+
+            if (history.IndexOf(emoji) != -1) return;
+
+            history = emoji + "," + history;
+            if (history.Length > 30*9)
+            {
+                Settings.Default.History = history.Substring(0, 30*9);
+            } else {
+                Settings.Default.History = history;
+            }
+            Settings.Default.Save();
         }
     }
 }

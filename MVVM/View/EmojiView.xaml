@@ -37,7 +37,7 @@
         </Grid>
         <StackPanel Margin="0,60,0,0">
             <ScrollViewer VerticalScrollBarVisibility="Hidden" HorizontalAlignment="Stretch" Height="465">
-                <Grid x:Name="_EmojyGrid" HorizontalAlignment="Stretch" Width="720" />
+                <Grid x:Name="_EmojyGrid" HorizontalAlignment="Stretch" Width="720" Margin="0,0,0,30"/>
             </ScrollViewer>
             <Button x:Name="_CopyButton" 
                     Visibility="Hidden" 

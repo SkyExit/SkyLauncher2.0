@@ -61,7 +61,7 @@
                                TextWrapping="Wrap" Text="WEAPON SKINS" VerticalAlignment="Top"
                                FontSize="23" Foreground="White" FontWeight="Bold"/>
                 <ScrollViewer Grid.Column="1" Margin="0,40,0,0" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden">
-                    <Grid x:Name="_SkinGrid"/>
+                    <Grid x:Name="_SkinGrid" Margin="0,0,0,25"/>
                 </ScrollViewer>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="450"/>

@@ -11,7 +11,8 @@ xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         WindowStyle="None"
         ResizeMode="NoResize"
         Background="Transparent"
-        AllowsTransparency="True">
+        AllowsTransparency="True"
+        Title="SkyLauncher 2.0">
 
     <Window.DataContext>
         <viewModel:MainViewModel/>
@@ -34,7 +35,8 @@ xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
                    HorizontalAlignment="Left"
                    Foreground="White"
                    FontSize="22"
-                       Margin="20,0,0,0"/>
+                   Margin="20,0,0,0"
+                       x:Name="LauncherName"/>
 
             <StackPanel Grid.Row="1">
                 <RadioButton Content="Home"
@@ -44,18 +46,24 @@ xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
                              Style="{StaticResource MenuButtonTheme}"
                              IsChecked="True"
                              Command="{Binding HomeViewCommand}"/>
-                <RadioButton Content="Projects"
-                             Height="50"
-                             Foreground="White"
-                             FontSize="14"
-                             Style="{StaticResource MenuButtonTheme}"
-                             Command="{Binding ProjectViewCommand}"/>
                 <RadioButton Content="Emojis"
                              Height="50"
                              Foreground="White"
                              FontSize="14"
                              Style="{StaticResource MenuButtonTheme}"
                              Command="{Binding EmojiViewCommand}"/>
+                <RadioButton Content="Text Emojis"
+                             Height="50"
+                             Foreground="White"
+                             FontSize="14"
+                             Style="{StaticResource MenuButtonTheme}"
+                             Command="{Binding TextEmojiViewCommand}"/>
+                <RadioButton Content="Projects"
+                             Height="50"
+                             Foreground="White"
+                             FontSize="14"
+                             Style="{StaticResource MenuButtonTheme}"
+                             Command="{Binding ProjectViewCommand}"/>
                 <RadioButton Content="VALORANT"
                              Height="50"
                              Foreground="White"
@@ -64,8 +72,18 @@ xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
                              Command="{Binding ValorantViewCommand}"/>
             </StackPanel>
 
+            <TextBlock x:Name="VersionTextBlock" 
+                       Grid.Row="1"
+                       Margin="20,20,10,20"
+                       Text="vX.X.X"
+                       Foreground="White"
+                       HorizontalAlignment="Left"
+                       FontSize="20"
+                       VerticalAlignment="Bottom"/>
+
             <TextBox Width="250"
                      Height="40"
+                     TextChanged="_SearchBar_TextChanged"
                      VerticalAlignment="Center"
                      HorizontalAlignment="Left"
                      Margin="5"
@@ -83,6 +101,7 @@ xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
                                          Foreground="#FFA2A2A2" 
                                          Width="25" Height="25"/>
             </Button>
+            
             <Button Background="{x:Null}" BorderBrush="{x:Null}" 
                     VerticalAlignment="Center" 
                     Click="MinimizeLauncher_Click"
@@ -98,6 +117,7 @@ xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
             <ContentControl Grid.Row="1"
                             Grid.Column="1"
                             Margin="10"
+                            x:Name="_ContentControl"
                             Content="{Binding CurrentView}"/>
         </Grid>
     </Border>

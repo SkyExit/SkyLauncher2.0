@@ -92,7 +92,6 @@ namespace SkyLauncherRemastered.MVVM.View
             try
             {
                 var weaponDefault = jsonO["data"][weapon];
-                
                 JArray weaponSkins = JArray.Parse(jsonO["data"][weapon]["skins"].ToString());
                 
 
@@ -180,8 +179,9 @@ namespace SkyLauncherRemastered.MVVM.View
                         img.MouseLeftButtonDown += OpenImageLarge;
 
                         stackPanel.Children.Add(img);
-                    } catch (Exception)
+                    } catch (UriFormatException ex)
                     {
+                        Console.WriteLine("3. " + ex.Message);
                         Grid.SetColumnSpan(stackPanel, 1);
                         Grid.SetRow(stackPanel, i);
                         projectGrid.Children.Add(stackPanel);
@@ -198,7 +198,7 @@ namespace SkyLauncherRemastered.MVVM.View
 
         }
 
-        private async void OpenImageLarge(object sender, MouseButtonEventArgs e)
+        private void OpenImageLarge(object sender, MouseButtonEventArgs e)
         {
             
         }
