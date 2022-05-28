@@ -27,7 +27,7 @@ namespace SkyLauncherRemastered
 
         public static MainWindow Instance { get; private set; }
 
-        private String version = "v1.6.9";
+        private String version = "v1.7.3";
         private String vString;
         private bool upToDate = false;
 
@@ -60,7 +60,6 @@ namespace SkyLauncherRemastered
                 String searchS = "private String version =";
                 String[] sString = onlineString.Substring(onlineString.IndexOf(searchS) + searchS.Length).Split(';');
                 vString = sString[0].Replace('"', ' ').Trim();
-
                 upToDate = version.Equals(vString) ? true : false;
             }
 
@@ -73,7 +72,14 @@ namespace SkyLauncherRemastered
         protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
         {
             base.OnMouseLeftButtonDown(e);
-            this.DragMove();
+            try
+            {
+                this.DragMove();
+            } catch (Exception ex)
+            {
+
+            }
+            
         }
 
         private void ShutdownLauncher_Click(object sender, RoutedEventArgs e)

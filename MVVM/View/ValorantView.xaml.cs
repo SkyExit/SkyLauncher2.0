@@ -24,6 +24,7 @@ namespace SkyLauncherRemastered.MVVM.View
     {
 
         private JObject jsonO;
+        int WeaponInt;
         private enum Weapon
         {
             ODIN,
@@ -91,6 +92,7 @@ namespace SkyLauncherRemastered.MVVM.View
         {
             try
             {
+                WeaponInt = weapon;
                 var weaponDefault = jsonO["data"][weapon];
                 JArray weaponSkins = JArray.Parse(jsonO["data"][weapon]["skins"].ToString());
                 
@@ -176,6 +178,7 @@ namespace SkyLauncherRemastered.MVVM.View
                         img.Width = 250;
                         img.VerticalAlignment = VerticalAlignment.Top;
                         img.HorizontalAlignment = HorizontalAlignment.Left;
+                        img.Name = "if" + i.ToString();
                         img.MouseLeftButtonDown += OpenImageLarge;
 
                         stackPanel.Children.Add(img);
@@ -200,7 +203,118 @@ namespace SkyLauncherRemastered.MVVM.View
 
         private void OpenImageLarge(object sender, MouseButtonEventArgs e)
         {
-            
+            Image clickedImage = e.Source as Image;
+            string Name = clickedImage.Name;
+
+            String[] id = Name.Split('f');
+
+            var weaponDefault = jsonO["data"][WeaponInt];
+            JArray weaponSkins = JArray.Parse(jsonO["data"][WeaponInt]["skins"].ToString());
+
+            var skin = weaponSkins[int.Parse(id[1])];
+            JArray chromas = JArray.Parse(skin["chromas"].ToString());
+            JArray levels = JArray.Parse(skin["levels"].ToString());
+
+            //Console.WriteLine(chromas.Count);
+
+            Grid chromaGrid = _SkinChromaGrid;
+            Grid levelGrid = _SkinLevelGrid;
+
+            chromaGrid.Children.Clear();
+            chromaGrid.ColumnDefinitions.Clear();
+            chromaGrid.RowDefinitions.Clear();
+
+            levelGrid.Children.Clear();
+            levelGrid.ColumnDefinitions.Clear();
+            levelGrid.RowDefinitions.Clear();
+
+            for (int i = 0; i < chromas.Count; i++)
+            {
+                var chroma = chromas[i];
+
+                chromaGrid.RowDefinitions.Add(new RowDefinition());
+
+                StackPanel stackPanel = new StackPanel();
+                TextBlock txt1 = new TextBlock();
+                txt1.Text = chroma["displayName"].ToString();
+                txt1.FontSize = 15;
+                txt1.Foreground = Brushes.White;
+                txt1.TextAlignment = TextAlignment.Left;
+
+                stackPanel.Children.Add(txt1);
+
+                try
+                {
+                    Image img = new Image();
+                    img.Source = new BitmapImage(new Uri(chroma["fullRender"].ToString()));
+                    img.Width = 250;
+                    img.VerticalAlignment = VerticalAlignment.Top;
+                    img.HorizontalAlignment = HorizontalAlignment.Left;
+                    //img.Name = "if" + i.ToString();
+                    //img.MouseLeftButtonDown += OpenImageLarge;
+
+                    stackPanel.Children.Add(img);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("3. " + ex.Message);
+                    Grid.SetColumnSpan(stackPanel, 1);
+                    Grid.SetRow(stackPanel, i);
+                    chromaGrid.Children.Add(stackPanel);
+                    continue;
+                }
+
+                Grid.SetColumnSpan(stackPanel, 1);
+                Grid.SetRow(stackPanel, i);
+                chromaGrid.Children.Add(stackPanel);
+            }
+
+            for (int i = 0; i < levels.Count; i++)
+            {
+                var level = levels[i];
+
+                levelGrid.RowDefinitions.Add(new RowDefinition());
+
+                StackPanel stackPanel = new StackPanel();
+                TextBlock txt1 = new TextBlock();
+                txt1.Text = level["displayName"].ToString();
+                txt1.FontSize = 15;
+                txt1.Foreground = Brushes.White;
+                txt1.TextAlignment = TextAlignment.Left;
+
+                stackPanel.Children.Add(txt1);
+
+                try
+                {
+                    String[] lvlItem = level["levelItem"].ToString().Split(':');
+                    TextBlock txt2 = new TextBlock();
+                    txt2.Text = lvlItem[2] != null ? lvlItem[2] : "default";
+                    txt2.FontSize = 35;
+                    txt2.Foreground = Brushes.White;
+                    txt2.TextAlignment = TextAlignment.Center;
+                    //txt2.MouseLeftButtonDown += Txt2_MouseLeftButtonDown("asd");
+
+                    stackPanel.Children.Add(txt2);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("3. " + ex.Message);
+                    Grid.SetColumnSpan(stackPanel, 1);
+                    Grid.SetRow(stackPanel, i);
+                    levelGrid.Children.Add(stackPanel);
+                    continue;
+                }
+
+                Grid.SetColumnSpan(stackPanel, 1);
+                Grid.SetRow(stackPanel, i);
+                levelGrid.Children.Add(stackPanel);
+            }
+            _InfoSkinGrid.Visibility = Visibility.Visible;
+        }
+
+        private void Txt2_MouseLeftButtonDown(object sender, MouseButtonEventArgs e, String url)
+        {
+            throw new NotImplementedException();
         }
 
         private static async Task<JObject> GetWeapons()
@@ -230,6 +344,11 @@ namespace SkyLauncherRemastered.MVVM.View
         private void CloseInfoWindow(object sender, RoutedEventArgs e)
         {
             _InfoGrid.Visibility = Visibility.Hidden;
+        }
+
+        private void CloseSkinInfoWindow(object sender, RoutedEventArgs e)
+        {
+            _InfoSkinGrid.Visibility = Visibility.Hidden;
         }
     }
 }

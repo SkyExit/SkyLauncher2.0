@@ -68,6 +68,20 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
             </Grid>
+            <Grid x:Name="_InfoSkinGrid" Height="525" Width="720" Margin="0,-525,0,0" Visibility="Hidden" Background="#BF000000">
+                <Button Content="X" Background="Transparent" Grid.Column="0" BorderBrush="{x:Null}" HorizontalAlignment="Left" 
+                            VerticalAlignment="Top" Cursor="Hand" Click="CloseSkinInfoWindow"/>
+                <ScrollViewer Grid.Column="0" Margin="0,40,0,0" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden">
+                    <Grid x:Name="_SkinChromaGrid" Margin="0,0,0,25"/>
+                </ScrollViewer>
+                <ScrollViewer Grid.Column="1" Margin="0,40,0,0" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden">
+                    <Grid x:Name="_SkinLevelGrid" Margin="0,0,0,25"/>
+                </ScrollViewer>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+            </Grid>
         </StackPanel>
     </Grid>
 </UserControl>
