@@ -27,7 +27,7 @@ namespace SkyLauncherRemastered
 
         public static MainWindow Instance { get; private set; }
 
-        private String version = "v1.7.3";
+        private String version = "v1.7.4";
         private String vString;
         private bool upToDate = false;
 

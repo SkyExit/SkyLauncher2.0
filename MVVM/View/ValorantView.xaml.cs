@@ -2,6 +2,7 @@
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
@@ -56,7 +57,14 @@ namespace SkyLauncherRemastered.MVVM.View
 
         private async Task setWeapons()
         {
-            jsonO = await GetWeapons();
+            try
+            {
+                jsonO = await GetWeapons();
+            } catch (Exception ex)
+            {
+                jsonO = null;
+            }
+            
         }
 
         private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -90,6 +98,7 @@ namespace SkyLauncherRemastered.MVVM.View
 
         private void OpenWeaponPage(int weapon)
         {
+            if (jsonO == null) return;
             try
             {
                 WeaponInt = weapon;
@@ -215,8 +224,6 @@ namespace SkyLauncherRemastered.MVVM.View
             JArray chromas = JArray.Parse(skin["chromas"].ToString());
             JArray levels = JArray.Parse(skin["levels"].ToString());
 
-            //Console.WriteLine(chromas.Count);
-
             Grid chromaGrid = _SkinChromaGrid;
             Grid levelGrid = _SkinLevelGrid;
 
@@ -250,8 +257,6 @@ namespace SkyLauncherRemastered.MVVM.View
                     img.Width = 250;
                     img.VerticalAlignment = VerticalAlignment.Top;
                     img.HorizontalAlignment = HorizontalAlignment.Left;
-                    //img.Name = "if" + i.ToString();
-                    //img.MouseLeftButtonDown += OpenImageLarge;
 
                     stackPanel.Children.Add(img);
                 }
@@ -292,7 +297,8 @@ namespace SkyLauncherRemastered.MVVM.View
                     txt2.FontSize = 35;
                     txt2.Foreground = Brushes.White;
                     txt2.TextAlignment = TextAlignment.Center;
-                    //txt2.MouseLeftButtonDown += Txt2_MouseLeftButtonDown("asd");
+                    txt2.DataContext = level["streamedVideo"].ToString();
+                    txt2.MouseLeftButtonDown += OpenLevelVideo;
 
                     stackPanel.Children.Add(txt2);
                 }
@@ -312,9 +318,12 @@ namespace SkyLauncherRemastered.MVVM.View
             _InfoSkinGrid.Visibility = Visibility.Visible;
         }
 
-        private void Txt2_MouseLeftButtonDown(object sender, MouseButtonEventArgs e, String url)
+        private void OpenLevelVideo(object sender, MouseButtonEventArgs e)
         {
-            throw new NotImplementedException();
+            TextBlock clickedImage = e.Source as TextBlock;
+            string UrlString = clickedImage.DataContext.ToString();
+
+            Process.Start("explorer", UrlString);
         }
 
         private static async Task<JObject> GetWeapons()
