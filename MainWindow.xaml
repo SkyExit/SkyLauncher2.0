@@ -84,11 +84,13 @@ xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
             <TextBox Width="250"
                      Height="40"
                      TextChanged="_SearchBar_TextChanged"
+                     x:Name="_SearchBarMain"
                      VerticalAlignment="Center"
                      HorizontalAlignment="Left"
                      Margin="5"
                      Grid.Column="1"
                      Style="{StaticResource ModernSearchBox}"/>
+
 
             <Button Background="{x:Null}" BorderBrush="{x:Null}" 
                     VerticalAlignment="Center" 

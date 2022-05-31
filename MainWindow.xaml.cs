@@ -27,7 +27,7 @@ namespace SkyLauncherRemastered
 
         public static MainWindow Instance { get; private set; }
 
-        private String version = "v1.7.4";
+        private String version = "v1.7.5";
         private String vString;
         private bool upToDate = false;
 
@@ -95,12 +95,13 @@ namespace SkyLauncherRemastered
         private void _SearchBar_TextChanged(object sender, TextChangedEventArgs e)
         {
             string[] ModelName = _ContentControl.Content.ToString().Split('.');
-            string barContent = ((FindResource("ModernSearchBox") as Style).ToString());
-            switch(ModelName[3])
+            TextBox tb = e.OriginalSource as TextBox;
+
+            switch (ModelName[3])
             {
                 case "TextEmojiViewModel":
                     {
-                        TextEmojiView.GetTextEmojiView.UpdateTextEmojiList(barContent);
+                        TextEmojiView.GetTextEmojiView.UpdateTextEmojiList(tb.Text);
                     }
                 break;
             }
