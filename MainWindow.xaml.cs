@@ -1,33 +1,19 @@
 ﻿using SkyLauncherRemastered.MVVM.View;
-using SkyLauncherRemastered.MVVM.ViewModel;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace SkyLauncherRemastered
 {
-    /// <summary>
-    /// Interaktionslogik für MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
 
         public static MainWindow Instance { get; private set; }
 
-        private String version = "v1.7.5";
+        private String version = "v1.8.3";
         private String vString;
         private bool upToDate = false;
 

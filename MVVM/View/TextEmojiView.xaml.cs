@@ -28,12 +28,23 @@ namespace SkyLauncherRemastered.MVVM.View
 
             GetTextEmojiView = this;
 
-            BuildTextEmojiPage(GetTextEmojis());
+            BuildTextEmojiPage(GetEmojiHastSet().Values.ToList());
         }
 
         public void UpdateTextEmojiList(string search)
         {
-            Console.WriteLine(search);
+            IDictionary<string, string> dic = GetEmojiHastSet();
+            List<string> list = new List<string>();
+
+            foreach(KeyValuePair<string, string> kvp in dic)
+            {
+                if(kvp.Key.ToLower().Contains(search.ToLower()))
+                {
+                    list.Add(kvp.Value);
+                }
+            }
+
+            BuildTextEmojiPage(list);
         }
 
         private void BuildTextEmojiPage(List<string> list)
@@ -105,16 +116,22 @@ namespace SkyLauncherRemastered.MVVM.View
             }
         }
 
-        private List<string> GetTextEmojis()
+        private IDictionary<string, string> GetEmojiHastSet()
         {
-            List<string> list = new List<string>();
+            IDictionary<string, string> dict = new Dictionary<string, string>();
+            //dict.Add("SEARCH", "TEXTEMOJI");
+            dict.Add("Lenny Face", "( ͡❛ ͜ʖ ͡❛)");
+            dict.Add("shrug", "¯\\_(ツ)_/¯");
+            dict.Add("tableflip", "(╯°□°）╯︵ ┻━┻");
+            dict.Add("unflip", "┬─┬ ノ( ゜-゜ノ)");
+            dict.Add("drink;beer", "(っ＾▿＾)۶🍸🌟🍺٩(˘◡˘ )");
+            dict.Add("triggered;angry", "(ㆆ_ㆆ)");
+            dict.Add("sad", "( ˘︹˘ )");
+            dict.Add("fight;battle", "(ง︡'-'︠)ง");
+            dict.Add("stonks;ok;gg", "(͠≖ ͜ʖ͠≖)👌");
 
-            list.Add("( ͡❛ ͜ʖ ͡❛)");
-            list.Add("(⊙.⊙(☉̃ₒ☉)⊙.⊙)");
-            list.Add("(╯°□°）╯︵ ┻━┻");
-            list.Add("(ง︡'-'︠)ง");
 
-            return list;
+            return dict;
         }
     }
 }
