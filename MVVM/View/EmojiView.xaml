@@ -9,29 +9,35 @@
     <Grid>
         <Grid x:Name="ControllGrid" Margin="0,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Top">
             <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,0,0" HorizontalAlignment="Center">
-                <Button x:Name="SEARCH" Background="{x:Null}" BorderBrush="{x:Null}" VerticalAlignment="Center" Click="MenuButton_Click" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}">
-                    <materialDesign:PackIcon Kind="Search" Foreground="#FFA2A2A2" Width="25" Height="25" />
-                </Button>
                 <Button x:Name="HISTORY" Background="{x:Null}" BorderBrush="{x:Null}" VerticalAlignment="Center" Click="MenuButton_Click" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}">
                     <materialDesign:PackIcon Kind="Clock" Foreground="#FFA2A2A2" Width="25" Height="25" />
                 </Button>
                 <Button x:Name="SMILEY" Background="{x:Null}" BorderBrush="{x:Null}" VerticalAlignment="Center" Click="MenuButton_Click" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}">
                     <materialDesign:PackIcon Kind="Smiley" Foreground="#FFA2A2A2" Width="25" Height="25" />
                 </Button>
-                <Button x:Name="ANIMALS" Background="{x:Null}" BorderBrush="{x:Null}" VerticalAlignment="Center" Click="MenuButton_Click" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}">
+                <Button x:Name="PEOPLE" Background="{x:Null}" BorderBrush="{x:Null}" VerticalAlignment="Center" Click="MenuButton_Click" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}">
+                    <materialDesign:PackIcon Kind="Human" Foreground="#FFA2A2A2" Width="25" Height="25" />
+                </Button>
+                <Button x:Name="ANIMAL" Background="{x:Null}" BorderBrush="{x:Null}" VerticalAlignment="Center" Click="MenuButton_Click" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}">
                     <materialDesign:PackIcon Kind="Dog" Foreground="#FFA2A2A2" Width="25" Height="25" />
                 </Button>
-                <Button x:Name="FLOWER" Background="{x:Null}" BorderBrush="{x:Null}" VerticalAlignment="Center" Click="MenuButton_Click" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}">
-                    <materialDesign:PackIcon Kind="Flower" Foreground="#FFA2A2A2" Width="25" Height="25" />
+                <Button x:Name="FOOD" Background="{x:Null}" BorderBrush="{x:Null}" VerticalAlignment="Center" Click="MenuButton_Click" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}">
+                    <materialDesign:PackIcon Kind="Food" Foreground="#FFA2A2A2" Width="25" Height="25" />
                 </Button>
-                <Button x:Name="SPORT" Background="{x:Null}" BorderBrush="{x:Null}" VerticalAlignment="Center" Click="MenuButton_Click" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}">
-                    <materialDesign:PackIcon Kind="Soccer" Foreground="#FFA2A2A2" Width="25" Height="25" />
+                <Button x:Name="TRAVEL" Background="{x:Null}" BorderBrush="{x:Null}" VerticalAlignment="Center" Click="MenuButton_Click" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}">
+                    <materialDesign:PackIcon Kind="Plane" Foreground="#FFA2A2A2" Width="25" Height="25" />
                 </Button>
-                <Button x:Name="LIGHTBULB" Background="{x:Null}" BorderBrush="{x:Null}" VerticalAlignment="Center" Click="MenuButton_Click"  Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}">
-                    <materialDesign:PackIcon Kind="Lightbulb" Foreground="#FFA2A2A2" Width="25" Height="25" />
+                <Button x:Name="ACTIVITY" Background="{x:Null}" BorderBrush="{x:Null}" VerticalAlignment="Center" Click="MenuButton_Click" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}">
+                    <materialDesign:PackIcon Kind="Baseball" Foreground="#FFA2A2A2" Width="25" Height="25" />
                 </Button>
-                <Button x:Name="HASHTAG" Background="{x:Null}" BorderBrush="{x:Null}" VerticalAlignment="Center" Click="MenuButton_Click" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}">
-                    <materialDesign:PackIcon Kind="HashtagBox" Foreground="#FFA2A2A2" Width="25" Height="25" />
+                <Button x:Name="OBJECT" Background="{x:Null}" BorderBrush="{x:Null}" VerticalAlignment="Center" Click="MenuButton_Click" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}">
+                    <materialDesign:PackIcon Kind="Hammer" Foreground="#FFA2A2A2" Width="25" Height="25" />
+                </Button>
+                <Button x:Name="SYMBOL" Background="{x:Null}" BorderBrush="{x:Null}" VerticalAlignment="Center" Click="MenuButton_Click" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}">
+                    <materialDesign:PackIcon Kind="Radiation" Foreground="#FFA2A2A2" Width="25" Height="25" />
+                </Button>
+                <Button x:Name="FLAG" Background="{x:Null}" BorderBrush="{x:Null}" VerticalAlignment="Center" Click="MenuButton_Click" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}">
+                    <materialDesign:PackIcon Kind="Flag" Foreground="#FFA2A2A2" Width="25" Height="25" />
                 </Button>
             </StackPanel>
         </Grid>

@@ -13,7 +13,7 @@ namespace SkyLauncherRemastered
 
         public static MainWindow Instance { get; private set; }
 
-        private String version = "v1.8.3";
+        private String version = "v1.8.7";
         private String vString;
         private bool upToDate = false;
 
@@ -85,11 +85,8 @@ namespace SkyLauncherRemastered
 
             switch (ModelName[3])
             {
-                case "TextEmojiViewModel":
-                    {
-                        TextEmojiView.GetTextEmojiView.UpdateTextEmojiList(tb.Text);
-                    }
-                break;
+                case "TextEmojiViewModel": TextEmojiView.GetTextEmojiView.UpdateTextEmojiList(tb.Text); break;
+                case "EmojiViewModel": EmojiView.GetEmojiView.UpdateEmojiList(tb.Text); break;
             }
         }
     }
