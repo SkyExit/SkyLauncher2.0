@@ -1,7 +1,7 @@
 <h1>SkyLauncher 2.0</h1>
 Installation: 
 
-- Download the SkyLauncher2.0Setup.exe from the releases Tab
+- Download the SkyLauncher2.0Setup.exe from the [releases](https://github.com/SkyExit/SkyLauncher2.0/releases) Tab
 - Install & Enjoy
 
 
@@ -25,3 +25,5 @@ ToDo-List:
 - Shortcuts to copy specific emojis faster
 - Settings for Autostart and White-/Darkmode
 - Edit homepage
+
+Contact me via [Discord](http://discord.laurinhummel.de) for further informations & help
