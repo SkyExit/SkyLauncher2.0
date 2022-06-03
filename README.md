@@ -11,16 +11,17 @@ Features:
       Animal, Flower, Sport, Travel, Stuff and Flag emojis
       Copy confirmation
       History saves on quit
+      Search (text)emojis by name
+- Text emoji board (Alpha)
 - ValBoard
 -     Informations about Weapons (Damage, Stats, Skins)
-      Click on weapon skin for large version
+      Click on weapon skin for extra details
+      Click on extra details to watch levels & chromas
 - Informations about every public project
 - Update Checker
-- Text emoji board (Alpha)
 
 
 ToDo-List:
-- Search emojis by name
 - Shortcuts to copy specific emojis faster
 - Settings for Autostart and White-/Darkmode
 - Edit homepage
