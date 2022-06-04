@@ -24,6 +24,7 @@ Features:
 ToDo-List:
 - Shortcuts to copy specific emojis faster
 - Settings for Autostart and White-/Darkmode
+- "old" emojis will be added to the top of history
 - Edit homepage
 
 Contact me via [Discord](http://discord.laurinhummel.de) for further informations & help
