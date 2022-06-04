@@ -12,6 +12,7 @@ Features:
       Copy confirmation
       History saves on quit
       Search (text)emojis by name
+      Hover over emoji to get name
 - Text emoji board (Alpha)
 - ValBoard
 -     Informations about Weapons (Damage, Stats, Skins)
