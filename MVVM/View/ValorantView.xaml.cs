@@ -1,29 +1,22 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace SkyLauncherRemastered.MVVM.View
 {
     public partial class ValorantView : UserControl
     {
-
         private JObject jsonO;
         int WeaponInt;
         private enum Weapon
@@ -57,14 +50,8 @@ namespace SkyLauncherRemastered.MVVM.View
 
         private async Task setWeapons()
         {
-            try
-            {
-                jsonO = await GetWeapons();
-            } catch (Exception ex)
-            {
-                jsonO = null;
-            }
-            
+            try { jsonO = await GetWeapons();
+            } catch (Exception ex) { jsonO = null; }
         }
 
         private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -105,7 +92,6 @@ namespace SkyLauncherRemastered.MVVM.View
                 var weaponDefault = jsonO["data"][weapon];
                 JArray weaponSkins = JArray.Parse(jsonO["data"][weapon]["skins"].ToString());
                 
-
                 //Print Weapon data
                 if(weapon != 17)
                 {
@@ -123,16 +109,12 @@ namespace SkyLauncherRemastered.MVVM.View
                                             "Wall penetration: " + wallPenetration[2];
 
                     Grid RangeGrid = _RangeGrid;
-
                     RangeGrid.Children.Clear();
                     RangeGrid.ColumnDefinitions.Clear();
-
-
 
                     for (int a = 0; a < weaponRanges.Count; a++)
                     {
                         var range = weaponRanges[a];
-
                         RangeGrid.ColumnDefinitions.Add(new ColumnDefinition());
 
                         TextBlock txt1 = new TextBlock();
@@ -143,7 +125,6 @@ namespace SkyLauncherRemastered.MVVM.View
                         Grid.SetColumn(txt1, a);
                         Grid.SetRow(txt1, 0);
                         RangeGrid.Children.Add(txt1);
-
 
                         TextBlock txt2 = new TextBlock();
                             txt2.Text =     "Head: " + range["headDamage"] + "\n" +
@@ -168,7 +149,6 @@ namespace SkyLauncherRemastered.MVVM.View
                 for (int i = 0; i < weaponSkins.Count; i++)
                 {
                     var skin = weaponSkins[i];
-
                     projectGrid.RowDefinitions.Add(new RowDefinition());
 
                     StackPanel stackPanel = new StackPanel();
@@ -207,7 +187,6 @@ namespace SkyLauncherRemastered.MVVM.View
                 _InfoGrid.Visibility = Visibility.Visible;
             }
             catch (Exception ex) { Console.WriteLine("2: " + ex.Message); }
-
         }
 
         private void OpenImageLarge(object sender, MouseButtonEventArgs e)
@@ -238,7 +217,6 @@ namespace SkyLauncherRemastered.MVVM.View
             for (int i = 0; i < chromas.Count; i++)
             {
                 var chroma = chromas[i];
-
                 chromaGrid.RowDefinitions.Add(new RowDefinition());
 
                 StackPanel stackPanel = new StackPanel();
@@ -277,7 +255,6 @@ namespace SkyLauncherRemastered.MVVM.View
             for (int i = 0; i < levels.Count; i++)
             {
                 var level = levels[i];
-
                 levelGrid.RowDefinitions.Add(new RowDefinition());
 
                 StackPanel stackPanel = new StackPanel();
@@ -322,14 +299,12 @@ namespace SkyLauncherRemastered.MVVM.View
         {
             TextBlock clickedImage = e.Source as TextBlock;
             string UrlString = clickedImage.DataContext.ToString();
-
             Process.Start("explorer", UrlString);
         }
 
         private static async Task<JObject> GetWeapons()
         {
             JObject responseBody = null;
-
             try
             {
                 using (var client = new HttpClient())

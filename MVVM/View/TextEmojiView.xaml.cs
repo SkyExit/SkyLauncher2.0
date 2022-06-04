@@ -1,23 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace SkyLauncherRemastered.MVVM.View
 {
-    /// <summary>
-    /// Interaktionslogik für TextEmojiView.xaml
-    /// </summary>
     public partial class TextEmojiView : UserControl
     {
         public static TextEmojiView GetTextEmojiView { get; private set; }
@@ -25,9 +13,7 @@ namespace SkyLauncherRemastered.MVVM.View
         public TextEmojiView()
         {
             InitializeComponent();
-
             GetTextEmojiView = this;
-
             BuildTextEmojiPage(GetEmojiHastSet().Values.ToList());
         }
 
@@ -43,7 +29,6 @@ namespace SkyLauncherRemastered.MVVM.View
                     list.Add(kvp.Value);
                 }
             }
-
             BuildTextEmojiPage(list);
         }
 
@@ -129,7 +114,6 @@ namespace SkyLauncherRemastered.MVVM.View
             dict.Add("sad", "( ˘︹˘ )");
             dict.Add("fight;battle", "(ง︡'-'︠)ง");
             dict.Add("stonks;ok;gg", "(͠≖ ͜ʖ͠≖)👌");
-
 
             return dict;
         }

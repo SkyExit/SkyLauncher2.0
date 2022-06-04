@@ -1,9 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -14,9 +12,6 @@ using System.Windows.Media;
 
 namespace SkyLauncherRemastered.MVVM.View
 {
-    /// <summary>
-    /// Interaktionslogik für ProjectView.xaml
-    /// </summary>
     public partial class ProjectView : UserControl
     {
         public ProjectView()
@@ -34,7 +29,6 @@ namespace SkyLauncherRemastered.MVVM.View
             for (int i = 0; i < projects.Count; i++)
             {
                 var project = projects[i];
-
                 projectGrid.RowDefinitions.Add(new RowDefinition());
 
                 StackPanel stackPanel = new StackPanel();

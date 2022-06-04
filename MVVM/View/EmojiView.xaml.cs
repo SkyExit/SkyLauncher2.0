@@ -25,18 +25,6 @@ namespace SkyLauncherRemastered.MVVM.View
     {
         public static EmojiView GetEmojiView { get; private set; }
 
-        private enum EmojiCategory
-        {
-            SEARCH,
-            HISTORY,
-            SMILEY,
-            ANIMALS,
-            FLOWER,
-            SPORT,
-            LIGHTBULB,
-            HASHTAG
-        }
-
         IDictionary<string, string> SmileysEmotion = new Dictionary<string, string>();
         IDictionary<string, string> PeopleBody = new Dictionary<string, string>();
         IDictionary<string, string> AnimalsNature = new Dictionary<string, string>();
@@ -59,36 +47,38 @@ namespace SkyLauncherRemastered.MVVM.View
         {
             switch ((sender as Button).Name.ToString())
             {
-                case "HISTORY": refreshGrid(GetEmojiHistory().ToList()); break;
-                case "SMILEY": refreshGrid(SmileysEmotion.Values.ToList()); break;
-                case "PEOPLE": refreshGrid(PeopleBody.Values.ToList()); break;
-                case "ANIMAL": refreshGrid(AnimalsNature.Values.ToList()); break;
-                case "FOOD": refreshGrid(FoodDrink.Values.ToList()); break;
-                case "TRAVEL": refreshGrid(TravelPlaces.Values.ToList()); break;
-                case "ACTIVITY": refreshGrid(Activities.Values.ToList()); break;
-                case "OBJECT": refreshGrid(Objects.Values.ToList()); break;
-                case "SYMBOL": refreshGrid(Symbols.Values.ToList()); break;
-                case "FLAG": refreshGrid(Flags.Values.ToList()); break;
-                default: refreshGrid(SmileysEmotion.Values.ToList()); break;
+                case "HISTORY": refreshGrid(GetEmojiHistory().ToList(), new List<string>()); break;
+                case "SMILEY": refreshGrid(SmileysEmotion.Values.ToList(), SmileysEmotion.Keys.ToList()); break;
+                case "PEOPLE": refreshGrid(PeopleBody.Values.ToList(), PeopleBody.Keys.ToList()); break;
+                case "ANIMAL": refreshGrid(AnimalsNature.Values.ToList(), AnimalsNature.Keys.ToList()); break;
+                case "FOOD": refreshGrid(FoodDrink.Values.ToList(), FoodDrink.Keys.ToList()); break;
+                case "TRAVEL": refreshGrid(TravelPlaces.Values.ToList(), TravelPlaces.Keys.ToList()); break;
+                case "ACTIVITY": refreshGrid(Activities.Values.ToList(), Activities.Keys.ToList()); break;
+                case "OBJECT": refreshGrid(Objects.Values.ToList(), Objects.Keys.ToList()); break;
+                case "SYMBOL": refreshGrid(Symbols.Values.ToList(), Symbols.Keys.ToList()); break;
+                case "FLAG": refreshGrid(Flags.Values.ToList(), Flags.Keys.ToList()); break;
+                default: refreshGrid(SmileysEmotion.Values.ToList(), SmileysEmotion.Keys.ToList()); break;
             }
         }
 
         public void UpdateEmojiList(string search)
         {
-            if (search.Equals("")) { refreshGrid(new List<string>()); return; }
+            if (search.Equals("")) { refreshGrid(new List<string>(), new List<string>()); return; }
 
-            List<string> list = new List<string>();
+            List<string> values = new List<string>();
+            List<string> keys = new List<string>();
             foreach (KeyValuePair<string, string> kvp in AllEmojis)
             {
                 if (kvp.Key.ToLower().Contains(search.ToLower()))
                 {
-                    list.Add(kvp.Value);
+                    values.Add(kvp.Value);
+                    keys.Add(kvp.Key);
                 }
             }
-            refreshGrid(list);
+            refreshGrid(values, keys);
         }
 
-        private void refreshGrid(List<string> list)
+        private void refreshGrid(List<string> list, List<string> keys)
         {
             Grid myGrid = _EmojyGrid;
 
@@ -103,7 +93,6 @@ namespace SkyLauncherRemastered.MVVM.View
 
             rowCount = (list.Count / columnCount);
 
-            //myGrid.Height = rowCount * 75;
             myGrid.Width = 720;
             myGrid.ShowGridLines = false;
             myGrid.HorizontalAlignment = HorizontalAlignment.Center;
@@ -127,10 +116,7 @@ namespace SkyLauncherRemastered.MVVM.View
                     {
                         tempC = 0;
                         tempR++;
-                        if (tempR > rowCount)
-                        {
-                            return;
-                        }
+                        if (tempR > rowCount) { return; }
                     }
 
                     Emoji.Wpf.TextBlock txt1 = new Emoji.Wpf.TextBlock();
@@ -138,7 +124,8 @@ namespace SkyLauncherRemastered.MVVM.View
                     txt1.FontSize = 35;
                     txt1.TextAlignment = TextAlignment.Center;
                     txt1.HorizontalAlignment = HorizontalAlignment.Center;
-                    txt1.MouseLeftButtonDown += ButDeletOnPreviewMouseDown;
+                    txt1.MouseLeftButtonDown += EmojiClickedCopy;
+                    txt1.ToolTip = keys[i];
 
                     Grid.SetColumnSpan(txt1, 1);
                     Grid.SetColumn(txt1, tempC);
@@ -149,25 +136,18 @@ namespace SkyLauncherRemastered.MVVM.View
                     tempC++;
                 }
             } catch (Exception ex) { Console.WriteLine(ex.Message); return; }
-
         }
 
-        private async void ButDeletOnPreviewMouseDown(object sender, MouseButtonEventArgs e)
+        private async void EmojiClickedCopy(object sender, MouseButtonEventArgs e)
         {
             Emoji.Wpf.TextBlock textBlock = (Emoji.Wpf.TextBlock)sender;
-            try
-            {
-                await copyToClipboard(textBlock.Text, true);
-            } catch (System.ArgumentException ex)
-            {
-                return;
-            }
+            try { await copyToClipboard(textBlock.Text, true);
+            } catch (System.ArgumentException ex) { return; }
         }
 
         private static async Task<JArray> GetEmojiJson()
         {
             JArray responseBody = null;
-
             try
             {
                 using (var client = new HttpClient())
@@ -196,27 +176,36 @@ namespace SkyLauncherRemastered.MVVM.View
                 for(int i = 0; i < jArray.Count; i++)
                 {
                     var emo = jArray[i];
+                    string aliasesString = "";
+                    JArray aliases = JArray.Parse(emo["aliases"].ToString());
+                    foreach(var alias in aliases)
+                    {
+                        aliasesString = aliasesString + alias.ToString() + ",";
+                    }
+
+                    aliasesString = aliasesString.TrimEnd(',');
+
                     switch (emo["category"].ToString())
                     {
-                        case "Smileys & Emotion": SmileysEmotion.Add(emo["aliases"][0].ToString(), emo["emoji"].ToString()); break;
-                        case "People & Body": PeopleBody.Add(emo["aliases"][0].ToString(), emo["emoji"].ToString()); break;
-                        case "Animals & Nature": AnimalsNature.Add(emo["aliases"][0].ToString(), emo["emoji"].ToString()); break;
-                        case "Food & Drink": FoodDrink.Add(emo["aliases"][0].ToString(), emo["emoji"].ToString()); break;
-                        case "Travel & Places": TravelPlaces.Add(emo["aliases"][0].ToString(), emo["emoji"].ToString()); break;
-                        case "Activities": Activities.Add(emo["aliases"][0].ToString(), emo["emoji"].ToString()); break;
-                        case "Objects": Objects.Add(emo["aliases"][0].ToString(), emo["emoji"].ToString()); break;
-                        case "Symbols": Symbols.Add(emo["aliases"][0].ToString(), emo["emoji"].ToString()); break;
-                        case "Flags": Flags.Add(emo["aliases"][0].ToString(), emo["emoji"].ToString()); break;
+                        case "Smileys & Emotion": SmileysEmotion.Add(aliasesString, emo["emoji"].ToString()); break;
+                        case "People & Body": PeopleBody.Add(aliasesString, emo["emoji"].ToString()); break;
+                        case "Animals & Nature": AnimalsNature.Add(aliasesString, emo["emoji"].ToString()); break;
+                        case "Food & Drink": FoodDrink.Add(aliasesString, emo["emoji"].ToString()); break;
+                        case "Travel & Places": TravelPlaces.Add(aliasesString, emo["emoji"].ToString()); break;
+                        case "Activities": Activities.Add(aliasesString, emo["emoji"].ToString()); break;
+                        case "Objects": Objects.Add(aliasesString, emo["emoji"].ToString()); break;
+                        case "Symbols": Symbols.Add(aliasesString, emo["emoji"].ToString()); break;
+                        case "Flags": Flags.Add(aliasesString, emo["emoji"].ToString()); break;
                     }
-                    AllEmojis.Add(emo["aliases"][0].ToString(), emo["emoji"].ToString());
+                    AllEmojis.Add(aliasesString, emo["emoji"].ToString());
                 }
             } catch (Exception ex) { Console.WriteLine(ex.Message); return; }
-            refreshGrid(SmileysEmotion.Values.ToList());
+            refreshGrid(SmileysEmotion.Values.ToList(), SmileysEmotion.Keys.ToList());
         }
 
         private String[] GetEmojiHistory()
         {
-            String SmileyList = null;
+            String SmileyList;
             SmileyList = Settings.Default.History.Substring(0,Settings.Default.History.Length-1);
             return SmileyList.Split(',');
         }
@@ -237,9 +226,7 @@ namespace SkyLauncherRemastered.MVVM.View
         private static void AddToHistory(string emoji)
         {
             string history = Settings.Default.History;
-
             if (history.IndexOf(emoji) != -1) return;
-
             history = emoji + "," + history;
             if (history.Length > 30*9)
             {

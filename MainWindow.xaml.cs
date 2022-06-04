@@ -10,10 +10,9 @@ namespace SkyLauncherRemastered
 {
     public partial class MainWindow : Window
     {
-
         public static MainWindow Instance { get; private set; }
 
-        private String version = "v1.8.7";
+        private String version = "v1.8.8";
         private String vString;
         private bool upToDate = false;
 
@@ -22,7 +21,6 @@ namespace SkyLauncherRemastered
             InitializeComponent();
 
             VersionTextBlock.Text = version;
-
             CheckForUpdates();
             if(!upToDate)
             {
@@ -47,36 +45,18 @@ namespace SkyLauncherRemastered
                 String[] sString = onlineString.Substring(onlineString.IndexOf(searchS) + searchS.Length).Split(';');
                 vString = sString[0].Replace('"', ' ').Trim();
                 upToDate = version.Equals(vString) ? true : false;
-            }
-
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.StackTrace);
-            }
+            } catch (Exception ex) { Console.WriteLine(ex.StackTrace); }
         }
 
         protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
         {
             base.OnMouseLeftButtonDown(e);
-            try
-            {
-                this.DragMove();
-            } catch (Exception ex)
-            {
-
-            }
-            
+            try { this.DragMove(); } catch (Exception ex) { }
         }
 
-        private void ShutdownLauncher_Click(object sender, RoutedEventArgs e)
-        {
-            Environment.Exit(0);
-        }
+        private void ShutdownLauncher_Click(object sender, RoutedEventArgs e) { Environment.Exit(0); }
 
-        private void MinimizeLauncher_Click(object sender, RoutedEventArgs e)
-        {
-            WindowState = WindowState.Minimized;
-        }
+        private void MinimizeLauncher_Click(object sender, RoutedEventArgs e) { WindowState = WindowState.Minimized; }
 
         private void _SearchBar_TextChanged(object sender, TextChangedEventArgs e)
         {
