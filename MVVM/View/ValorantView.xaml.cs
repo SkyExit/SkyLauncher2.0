@@ -163,7 +163,8 @@ namespace SkyLauncherRemastered.MVVM.View
                     try
                     {
                         Image img = new Image();
-                        img.Source = new BitmapImage(new Uri(skin["displayIcon"].ToString()));
+                        img.Source = skin["displayIcon"].ToString().Length > 0 ?
+                            new BitmapImage(new Uri(skin["displayIcon"].ToString())) : null;
                         img.Width = 250;
                         img.VerticalAlignment = VerticalAlignment.Top;
                         img.HorizontalAlignment = HorizontalAlignment.Left;
@@ -173,7 +174,7 @@ namespace SkyLauncherRemastered.MVVM.View
                         stackPanel.Children.Add(img);
                     } catch (UriFormatException ex)
                     {
-                        Console.WriteLine("3. " + ex.Message);
+                        Console.WriteLine("ValorantView.OpenWeaponPage:" + ex.StackTrace);
                         Grid.SetColumnSpan(stackPanel, 1);
                         Grid.SetRow(stackPanel, i);
                         projectGrid.Children.Add(stackPanel);
@@ -186,7 +187,7 @@ namespace SkyLauncherRemastered.MVVM.View
                 }
                 _InfoGrid.Visibility = Visibility.Visible;
             }
-            catch (Exception ex) { Console.WriteLine("2: " + ex.Message); }
+            catch (Exception ex) { Console.WriteLine("ValorantView.OpenWeaponPage:" + ex.StackTrace); }
         }
 
         private void OpenImageLarge(object sender, MouseButtonEventArgs e)
@@ -240,7 +241,7 @@ namespace SkyLauncherRemastered.MVVM.View
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine("3. " + ex.Message);
+                    Console.WriteLine("ValorantView.OpenImageLarge.Chromas:" + ex.StackTrace);
                     Grid.SetColumnSpan(stackPanel, 1);
                     Grid.SetRow(stackPanel, i);
                     chromaGrid.Children.Add(stackPanel);
@@ -270,7 +271,7 @@ namespace SkyLauncherRemastered.MVVM.View
                 {
                     String[] lvlItem = level["levelItem"].ToString().Split(':');
                     TextBlock txt2 = new TextBlock();
-                    txt2.Text = lvlItem[2] != null ? lvlItem[2] : "default";
+                    txt2.Text = level["levelItem"].ToString().Length > 0 ? lvlItem[2] : "Default";
                     txt2.FontSize = 35;
                     txt2.Foreground = Brushes.White;
                     txt2.TextAlignment = TextAlignment.Center;
@@ -281,7 +282,7 @@ namespace SkyLauncherRemastered.MVVM.View
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine("3. " + ex.Message);
+                    Console.WriteLine("ValorantView.OpenImageLarge.Levels:" + ex.StackTrace);
                     Grid.SetColumnSpan(stackPanel, 1);
                     Grid.SetRow(stackPanel, i);
                     levelGrid.Children.Add(stackPanel);
@@ -321,7 +322,7 @@ namespace SkyLauncherRemastered.MVVM.View
                     responseBody = (JObject)JsonConvert.DeserializeObject(readStream.ReadToEnd());
                 }
             }
-            catch (Exception ex) { Console.WriteLine(ex.Message); return null; }
+            catch (Exception ex) { Console.WriteLine("ValorantView.GetWeapons:" + ex.StackTrace); return null; }
             return responseBody;
         }
 

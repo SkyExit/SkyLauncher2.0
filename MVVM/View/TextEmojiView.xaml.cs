@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 
 namespace SkyLauncherRemastered.MVVM.View
@@ -14,25 +16,27 @@ namespace SkyLauncherRemastered.MVVM.View
         {
             InitializeComponent();
             GetTextEmojiView = this;
-            BuildTextEmojiPage(GetEmojiHastSet().Values.ToList());
+            BuildTextEmojiPage(GetEmojiHastSet().Keys.ToList(), GetEmojiHastSet().Values.ToList());
         }
 
         public void UpdateTextEmojiList(string search)
         {
             IDictionary<string, string> dic = GetEmojiHastSet();
-            List<string> list = new List<string>();
+            List<string> keys = new List<string>();
+            List<string> values = new List<string>();
 
-            foreach(KeyValuePair<string, string> kvp in dic)
+            foreach (KeyValuePair<string, string> kvp in dic)
             {
                 if(kvp.Key.ToLower().Contains(search.ToLower()))
                 {
-                    list.Add(kvp.Value);
+                    keys.Add(kvp.Key);
+                    values.Add(kvp.Value);
                 }
             }
-            BuildTextEmojiPage(list);
+            BuildTextEmojiPage(keys, values);
         }
 
-        private void BuildTextEmojiPage(List<string> list)
+        private void BuildTextEmojiPage(List<string> keys, List<string> values)
         {
             Grid myGrid = _TextEmojiGrid;
 
@@ -44,7 +48,7 @@ namespace SkyLauncherRemastered.MVVM.View
             int rowCount;
             int tempR = 0;
 
-            rowCount = (list.Count / columnCount);
+            rowCount = (keys.Count / columnCount);
 
             //myGrid.Height = rowCount * 75;
             myGrid.Width = 720;
@@ -57,7 +61,7 @@ namespace SkyLauncherRemastered.MVVM.View
                 myGrid.RowDefinitions.Add(new RowDefinition());
             }
 
-            for (int i = 0; i < list.Count; i++)
+            for (int i = 0; i < keys.Count; i++)
             {
                 if (tempC > columnCount)
                 {
@@ -81,13 +85,13 @@ namespace SkyLauncherRemastered.MVVM.View
                     txtBorder.VerticalAlignment = VerticalAlignment.Center;
 
                 TextBlock txt1 = new Emoji.Wpf.TextBlock();
-                txt1.Text = list[i];
+                txt1.Text = values[i];
                 txt1.FontSize = 25;
                 txt1.Foreground = Brushes.Black;
                 txt1.TextAlignment = TextAlignment.Center;
                 txt1.HorizontalAlignment = HorizontalAlignment.Center;
-                //txt1.HorizontalAlignment = HorizontalAlignment.Center;
-                //txt1.MouseLeftButtonDown += ButDeletOnPreviewMouseDown;
+                txt1.ToolTip = keys[i];
+                txt1.MouseLeftButtonDown += CopyTextEmoji;
                 txtBorder.Child = txt1;
                 stackPanel.Children.Add(txtBorder);
 
@@ -101,6 +105,13 @@ namespace SkyLauncherRemastered.MVVM.View
             }
         }
 
+        private async void CopyTextEmoji(object sender, MouseButtonEventArgs e)
+        {
+            TextBlock textBlock = (TextBlock)sender;
+            try { await copyToClipboard(textBlock.Text, true); }
+            catch (System.ArgumentException ex) { return; }
+        }
+
         private IDictionary<string, string> GetEmojiHastSet()
         {
             IDictionary<string, string> dict = new Dictionary<string, string>();
@@ -109,13 +120,25 @@ namespace SkyLauncherRemastered.MVVM.View
             dict.Add("shrug", "¯\\_(ツ)_/¯");
             dict.Add("tableflip", "(╯°□°）╯︵ ┻━┻");
             dict.Add("unflip", "┬─┬ ノ( ゜-゜ノ)");
-            dict.Add("drink;beer", "(っ＾▿＾)۶🍸🌟🍺٩(˘◡˘ )");
-            dict.Add("triggered;angry", "(ㆆ_ㆆ)");
+            dict.Add("drink, beer", "(っ＾▿＾)۶🍸🌟🍺٩(˘◡˘ )");
+            dict.Add("triggered, angry", "(ㆆ_ㆆ)");
             dict.Add("sad", "( ˘︹˘ )");
-            dict.Add("fight;battle", "(ง︡'-'︠)ง");
-            dict.Add("stonks;ok;gg", "(͠≖ ͜ʖ͠≖)👌");
+            dict.Add("fight, battle", "(ง︡'-'︠)ง");
+            dict.Add("stonks, ok, gg", "(͠≖ ͜ʖ͠≖)👌");
 
             return dict;
+        }
+
+        private static async Task copyToClipboard(string emoji, bool addToHistory)
+        {
+            System.Windows.Clipboard.SetText(emoji);
+
+            TextEmojiView textEmojiView = GetTextEmojiView;
+            Button copyButton = textEmojiView._CopyButton;
+            copyButton.Content = "📋 Copied to Clipboard";
+            copyButton.Visibility = Visibility.Visible;
+            await Task.Delay(1500);
+            copyButton.Visibility = Visibility.Hidden;
         }
     }
 }

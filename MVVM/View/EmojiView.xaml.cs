@@ -11,13 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace SkyLauncherRemastered.MVVM.View
 {
@@ -47,7 +41,7 @@ namespace SkyLauncherRemastered.MVVM.View
         {
             switch ((sender as Button).Name.ToString())
             {
-                case "HISTORY": refreshGrid(GetEmojiHistory().ToList(), new List<string>()); break;
+                case "HISTORY": refreshGrid(GetEmojiHistory(), new List<string>()); break;
                 case "SMILEY": refreshGrid(SmileysEmotion.Values.ToList(), SmileysEmotion.Keys.ToList()); break;
                 case "PEOPLE": refreshGrid(PeopleBody.Values.ToList(), PeopleBody.Keys.ToList()); break;
                 case "ANIMAL": refreshGrid(AnimalsNature.Values.ToList(), AnimalsNature.Keys.ToList()); break;
@@ -125,7 +119,7 @@ namespace SkyLauncherRemastered.MVVM.View
                     txt1.TextAlignment = TextAlignment.Center;
                     txt1.HorizontalAlignment = HorizontalAlignment.Center;
                     txt1.MouseLeftButtonDown += EmojiClickedCopy;
-                    txt1.ToolTip = keys[i];
+                    txt1.ToolTip = keys.Count != 0 ? keys[i] : null;
 
                     Grid.SetColumnSpan(txt1, 1);
                     Grid.SetColumn(txt1, tempC);
@@ -135,7 +129,7 @@ namespace SkyLauncherRemastered.MVVM.View
 
                     tempC++;
                 }
-            } catch (Exception ex) { Console.WriteLine(ex.Message); return; }
+            } catch (Exception ex) { Console.WriteLine("EmojiView.refreshGrid: " + ex.StackTrace); return; }
         }
 
         private async void EmojiClickedCopy(object sender, MouseButtonEventArgs e)
@@ -164,7 +158,7 @@ namespace SkyLauncherRemastered.MVVM.View
                     responseBody = (JArray)JsonConvert.DeserializeObject(readStream.ReadToEnd());
                 }
             }
-            catch (Exception ex) { Console.WriteLine(ex.Message); return null; }
+            catch (Exception ex) { Console.WriteLine("EmojiView.GetEmojiJson: " + ex.StackTrace); return null; }
             return responseBody;
         }
 
@@ -203,14 +197,18 @@ namespace SkyLauncherRemastered.MVVM.View
             refreshGrid(SmileysEmotion.Values.ToList(), SmileysEmotion.Keys.ToList());
         }
 
-        private String[] GetEmojiHistory()
+        private List<string> GetEmojiHistory()
         {
-            String SmileyList;
-            SmileyList = Settings.Default.History.Substring(0,Settings.Default.History.Length-1);
-            return SmileyList.Split(',');
+            try
+            {
+                string SmileyList = Settings.Default.History.Substring(0, Settings.Default.History.Length - 1);
+                List<string> emojis = new List<string>();
+                foreach (string Emoji in SmileyList.Split(',')) { emojis.Add(Emoji); }
+                return emojis;
+            } catch { return new List<string>(); }
         }
 
-        public static async Task copyToClipboard(String emoji, bool addToHistory)
+        private static async Task copyToClipboard(String emoji, bool addToHistory)
         {
             System.Windows.Clipboard.SetText(emoji);
 
@@ -226,14 +224,10 @@ namespace SkyLauncherRemastered.MVVM.View
         private static void AddToHistory(string emoji)
         {
             string history = Settings.Default.History;
-            if (history.IndexOf(emoji) != -1) return;
+            if (history.IndexOf(emoji) != -1) { history = history.Replace(emoji + ",", ""); }
             history = emoji + "," + history;
-            if (history.Length > 30*9)
-            {
-                Settings.Default.History = history.Substring(0, 30*9);
-            } else {
-                Settings.Default.History = history;
-            }
+            if (history.Length > 30*9) { Settings.Default.History = history.Substring(0, 30*9); } 
+            else { Settings.Default.History = history; }
             Settings.Default.Save();
         }
     }
