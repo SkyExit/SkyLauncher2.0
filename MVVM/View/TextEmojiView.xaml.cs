@@ -116,16 +116,34 @@ namespace SkyLauncherRemastered.MVVM.View
         {
             IDictionary<string, string> dict = new Dictionary<string, string>();
             //dict.Add("SEARCH", "TEXTEMOJI");
+
             dict.Add("Lenny Face", "( ͡❛ ͜ʖ ͡❛)");
+            dict.Add("Lenny Face 2", "( ͡° ͜ʖ ͡°)");
             dict.Add("shrug", "¯\\_(ツ)_/¯");
-            dict.Add("tableflip", "(╯°□°）╯︵ ┻━┻");
-            dict.Add("unflip", "┬─┬ ノ( ゜-゜ノ)");
-            dict.Add("drink, beer", "(っ＾▿＾)۶🍸🌟🍺٩(˘◡˘ )");
             dict.Add("triggered, angry", "(ㆆ_ㆆ)");
-            dict.Add("sad", "( ˘︹˘ )");
+            dict.Add("flower face", "(✿◠‿◠)");
+            dict.Add("haha", "☜(ˆ▿ˆc)");
+            dict.Add("disapproval face", "ಠ_ಠ");
+            dict.Add("wtf", "¯\\(°_o)/¯");
+            dict.Add("idk", "╮ (. ❛ ᴗ ❛.) ╭");
+            dict.Add("deal with it", "(▀̿Ĺ̯▀̿ ̿)");
+            dict.Add("100$", "[̲̅$̲̅(̲̅ιοο̲̅)̲̅$̲̅]");
             dict.Add("fight, battle", "(ง︡'-'︠)ง");
             dict.Add("stonks, ok, gg", "(͠≖ ͜ʖ͠≖)👌");
 
+            dict.Add("tableflip", "(╯°□°）╯︵ ┻━┻");
+            dict.Add("tableflip2", "(ﾉಥ益ಥ）ﾉ ┻━┻");
+            dict.Add("unflip", "┬─┬ ノ( ゜-゜ノ)");
+            dict.Add("unflip2", "┬─┬ノ( º _ ºノ)");
+
+            dict.Add("shit", "ヽ༼ຈل͜ຈ༽ﾉ");
+            dict.Add("teddy bear", "ʕ•ᴥ•ʔ");
+            dict.Add("angry1", "ლ(´ڡ`ლ)");
+            dict.Add("sad1", "( ˘︹˘ )");
+            dict.Add("sad2", "(｡ŏ﹏ŏ)");
+            dict.Add("sad3", "( ･ั﹏･ั)");
+            dict.Add("drink, beer", "(っ＾▿＾)۶🍸🌟🍺٩(˘◡˘ )");
+            dict.Add("middle finger", "╭∩╮（︶︿︶）╭∩╮");
             return dict;
         }
 
