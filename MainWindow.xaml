@@ -70,6 +70,12 @@ xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
                              FontSize="14"
                              Style="{StaticResource MenuButtonTheme}"
                              Command="{Binding ValorantViewCommand}"/>
+				<RadioButton Content="MWII"
+                             Height="50"
+                             Foreground="White"
+                             FontSize="14"
+                             Style="{StaticResource MenuButtonTheme}"
+                             Command="{Binding MW2ViewCommand}"/>
             </StackPanel>
 
             <TextBlock x:Name="VersionTextBlock" 

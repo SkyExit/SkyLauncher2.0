@@ -10,12 +10,14 @@ namespace SkyLauncherRemastered.MVVM.ViewModel
         public RelayCommand EmojiViewCommand { get; set; }
         public RelayCommand ValorantViewCommand { get; set; }
         public RelayCommand TextEmojiViewCommand { get; set; }
+        public RelayCommand MW2ViewCommand { get; set; }
 
         public HomeViewModel HomeViewModel { get; set; }
         public ProjectViewModel ProjectViewModel { get; set; }
         public EmojiViewModel EmojiViewModel { get; set; }
         public ValorantViewModel ValorantViewModel { get; set; }
         public TextEmojiViewModel TextEmojiViewModel { get; set; }
+        public MW2ViewModel MW2ViewModel { get; set; }
 
         private object _currentView;
         public object CurrentView
@@ -31,6 +33,7 @@ namespace SkyLauncherRemastered.MVVM.ViewModel
             EmojiViewModel = new EmojiViewModel();
             ValorantViewModel = new ValorantViewModel();
             TextEmojiViewModel = new TextEmojiViewModel();
+            MW2ViewModel = new MW2ViewModel();
 
             CurrentView = HomeViewModel;
 
@@ -57,6 +60,11 @@ namespace SkyLauncherRemastered.MVVM.ViewModel
             TextEmojiViewCommand = new RelayCommand(o =>
             {
                 CurrentView = TextEmojiViewModel;
+            });
+
+            MW2ViewCommand = new RelayCommand(o =>
+            {
+                CurrentView = MW2ViewModel;
             });
         }
     }

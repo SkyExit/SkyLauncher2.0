@@ -37,6 +37,10 @@
                 <view:TextEmojiView/>
             </DataTemplate>
 
+			<DataTemplate DataType="{x:Type viewModel:MW2ViewModel}">
+				<view:MW2View/>
+			</DataTemplate>
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>
